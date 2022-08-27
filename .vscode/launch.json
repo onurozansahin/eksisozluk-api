@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "eksisozluk-api",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "serve"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "killBehavior": "polite" // SIGTERM instead of SIGKILL
+        }
+    ]
+}
