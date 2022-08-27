@@ -42,8 +42,7 @@ exports.list = async function(reqUrl) {
   return threads;
 }
 
-
-exports.detail = async function(reqUrl) {
+async function detailImpl(reqUrl) {
   reqUrl = parseDetailUrl(reqUrl);
   let response;
   try {
@@ -63,6 +62,11 @@ exports.detail = async function(reqUrl) {
   title = $("#title").attr("data-title");
   threadID =  $("#title").attr("data-id");
   slug = $("#title").attr("data-slug") + "--" + threadID;
+
+  if (reqUrl.indexOf(slug) === -1) {
+    return await detailImpl(`/baslik/${reqUrl.replace(title, slug)}`);
+  }
+
   total_page = parseInt($(".pager").attr("data-pagecount")) || 1;
   current_page = parseInt($(".pager").attr("data-currentpage")) || 1;
   tags = $("#hidden-channels").text().trim().split(",") || null;
@@ -108,6 +112,10 @@ exports.detail = async function(reqUrl) {
   }
   
   return thread;
+}
+
+exports.detail = async function(reqUrl) {
+  return await detailImpl(reqUrl);
 }
 
 /*
