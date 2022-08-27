@@ -87,9 +87,11 @@ async function detailImpl(reqUrl) {
     author = $(element).find(".entry-author").text();
     date = $(element).find(".entry-date").text();
     [created_at, updated_at] = parseDate(date);
+    permalink = URLS.ENTRY + `/${id}`;
     entry = {
       id,
       body,
+      permalink,
       author,
       author_id,
       fav_count,
@@ -99,12 +101,15 @@ async function detailImpl(reqUrl) {
     entries.push(entry);
   });
 
+  permalink=URLS.BASE + "/" + reqUrl;
+
   thread = {
     id:threadID,
     disambiguation_titles,
     disambiguation_links,
     title,
     slug,
+    permalink,
     total_page,
     current_page,
     tags,
